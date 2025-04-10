@@ -1,0 +1,38 @@
+{% extends 'tapasapp/base.html' %}
+{% load static %}
+
+{% block alert %}
+    {% if message %}
+        <div class="d-flex justify-content-center">
+            <div class="alert alert-success alert-dismissible fade show" style="position: fixed; z-index: 1; width: 50%;" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"> Currently logged-in as:</h5>
+        </div>
+        <div class="card-body">
+
+            
+            <h2> {{user.username}} </h2>
+            <p>
+                <form method="POST">{% csrf_token %}
+                    <a href="{% url 'change_password' pk=user.pk %}"  class="btn btn-primary">Change password</a>
+                    <button type="submit" name="button" value="delete_account" class="btn btn-danger">Delete account</button>
+                    <a href="{% url 'basic_list' pk=user.pk %}"  class="btn btn-secondary">Back</a>
+                </form>
+            </p>
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}
